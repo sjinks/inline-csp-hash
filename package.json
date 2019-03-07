@@ -1,0 +1,21 @@
+{
+  "name": "inline-csp-hash",
+  "version": "0.0.1",
+  "description": "Plugin to generate hash for inline scripts and styles for CSP",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.22",
+    "readable-stream": "^3.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "vinyl-fs": "^3.0.3"
+  },
+  "repository": "sjinks/inline-csp-hash"
+}
