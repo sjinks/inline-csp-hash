@@ -1,3 +1,11 @@
 language: node_js
 dist: xenial
 node_js: 6
+deploy:
+  provider: npm
+  email: volodymyr@wildwolf.name
+  api_key:
+    secure: 8ov81dopx3KRhxslqp/j71300TXJd7IcQ/stvf9wa0+YK4hXd4zr6kpx+utdZGGxWsbUzkrpqxbo57sC6oY3EDiiIGF9rqUY6ZJ3O5FrbKzekFXIxwg8AEt8f0dbvxkydu3SA0MJ9Pco3K/jMgE5zt6A2a0VWc8T/pF+68D6DlZD0MNtEQeP4KvX1NjqDAIPnrW92gENIsIbAes6vwRfenK5S4+REnqp1W9rWRm7lurP0wCXxte6uweIm4PfCXJvuLMqfK0u5VRHudaCuj1wFNJcQQ1HGJ1kI58/DMDFHk7fNOsLJGD1mhTyUflaQV65EbFRBvtmSbMiuieUZUJsGRK97YZUB/dSxaJZThprT9AB71szB6w62xqjpGnr0SF16It4un62bgKCt4WrCUwV2L7mHVKi/ArVLXqSYPBi5R7RnpaJgeosrFWCEAfRPEItRQ33PP1m3X72p0tQ6OFExup2dFc9n6h5wnEKTvWI+ytFc+TeMRw/Rc5G2jg/fz9Jl5jT5vsu+6Z/hjIffnMiUvUdlKb44y4kQgm2BWAbnLOIPi9BDyQrgd8kET35RvvlWuDm8gA/BgTjFbD8M5hrol5DqhXlaSBiQ7QqcoDv7lyfwofoIpieVN+g9AQJTZofjD/P529XOnRRBiIasQ4xF/Co4D87ZIIOWeGVycvEd9E=
+  on:
+    tags: true
+    repo: sjinks/inline-csp-hash
