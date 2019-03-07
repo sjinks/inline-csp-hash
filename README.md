@@ -1,5 +1,7 @@
 # inline-csp-hash
 
+[![Build Status](https://travis-ci.com/sjinks/inline-csp-hash.svg?branch=master)](https://travis-ci.com/sjinks/inline-csp-hash)
+
 Plugin to generate hash for inline scripts and styles for CSP.
 
 This plugin is insipred by [hash-csp](https://github.com/chrahunt/hash-csp), and operates mostly the same way.
