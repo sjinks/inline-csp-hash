@@ -13,7 +13,7 @@ function fixtures(glob)
 
 function run(name, hash, what, done)
 {
-	const sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: "utf8" }).split("\n");
+	const sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: "utf8" }).split("\n").filter((s) => s.length > 0);
 	vfs.src(fixtures(name + '.html'))
 		.pipe(
 			hashstream({hash, what}, (h) => {
@@ -45,6 +45,13 @@ describe('hashing', function() {
 
 	describe('should hash multiple script tags', function() {
 		const name = "multiple-scripts";
+		it('#sha256', function(done) { run(name, 'sha256', 'script', done); });
+		it('#sha384', function(done) { run(name, 'sha384', 'script', done); });
+		it('#sha512', function(done) { run(name, 'sha512', 'script', done); });
+	});
+
+	describe('should ignore scripts with src attribute', function() {
+		const name = "script-src";
 		it('#sha256', function(done) { run(name, 'sha256', 'script', done); });
 		it('#sha384', function(done) { run(name, 'sha384', 'script', done); });
 		it('#sha512', function(done) { run(name, 'sha512', 'script', done); });

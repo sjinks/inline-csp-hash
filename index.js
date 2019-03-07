@@ -10,7 +10,7 @@ let defaults = {
 function mapItems(html, what, callback)
 {
 	const $ = cheerio.load(html);
-	return $(what).map((i, el) => callback($(el).text())).toArray();
+	return $(what + ':not([src])').map((i, el) => callback($(el).text())).toArray();
 }
 
 function hashstream(opts, cb)
