@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "gulp-util": "^3.0.8",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "vinyl": "^2.2.0"
   },
   "repository": "sjinks/inline-csp-hash"
 }

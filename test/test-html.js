@@ -4,7 +4,7 @@ const path       = require('path');
 const fs         = require('fs');
 const hashstream = require('..');
 const expect     = require('chai').expect;
-const gutil      = require('gulp-util');
+const vinyl      = require('vinyl');
 
 function fixtures(glob)
 {
@@ -13,7 +13,7 @@ function fixtures(glob)
 
 function run(name, hash, what, done)
 {
-	let srcFile = new gutil.File({
+	let srcFile = new vinyl({
 		path: fixtures(name + '.html'),
 		cwd: 'test/',
 		base: fixtures(''),
