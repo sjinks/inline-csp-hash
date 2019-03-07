@@ -1,6 +1,7 @@
 {
   "name": "inline-csp-hash",
   "version": "0.0.1",
+  "keywords": ["csp", "content security policy", "gulp", "hash", "inline"],
   "description": "Plugin to generate hash for inline scripts and styles for CSP",
   "main": "index.js",
   "scripts": {
