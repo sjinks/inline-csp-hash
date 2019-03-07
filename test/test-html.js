@@ -1,10 +1,10 @@
 /* eslint no-sync: "off" */
 /* global describe, it, __dirname */
 const path       = require('path');
-const vfs        = require('vinyl-fs');
 const fs         = require('fs');
 const hashstream = require('..');
 const expect     = require('chai').expect;
+const gutil      = require('gulp-util');
 
 function fixtures(glob)
 {
@@ -13,19 +13,39 @@ function fixtures(glob)
 
 function run(name, hash, what, done)
 {
-	const sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: "utf8" }).split("\n").filter((s) => s.length > 0);
-	vfs.src(fixtures(name + '.html'))
-		.pipe(
-			hashstream({hash, what}, (h) => {
-				expect(h).to.have.length(sha.length);
-				for (let i=0; i<sha.length; ++i) {
-					expect(h[i]).to.equal(sha[i]);
-				}
+	let srcFile = new gutil.File({
+		path: fixtures(name + '.html'),
+		cwd: 'test/',
+		base: fixtures(''),
+		contents: fs.readFileSync(fixtures(name + '.html'))
+	});
 
-				done();
-			})
-		)
-	;
+	let hashes;
+	const sha  = fs.readFileSync(fixtures(name + '.' + hash), { encoding: "utf8" }).split("\n").filter((s) => s.length > 0);
+	let stream = hashstream({
+		hash, what,
+		replace_cb: (s, h) => {
+			hashes = h.map((x) => x.replace("'", ''));
+			return s;
+		}
+	});
+
+	stream.on('error', (err) => {
+		expect(err).to.not.exist;
+		done(err);
+	});
+
+	stream.on('data', (newFile) => {
+		expect(hashes).to.have.length(sha.length);
+		for (let i=0; i<sha.length; ++i) {
+			expect(hashes[i]).to.equal(sha[i]);
+		}
+
+		done();
+	});
+
+	stream.write(srcFile);
+	stream.end();
 }
 
 describe('hashing', function() {

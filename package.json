@@ -10,12 +10,12 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.22",
-    "readable-stream": "^3.2.0"
+    "through2": "^3.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.0.2",
-    "vinyl-fs": "^3.0.3"
+    "gulp-util": "^3.0.8",
+    "mocha": "^6.0.2"
   },
   "repository": "sjinks/inline-csp-hash"
 }
