@@ -1,6 +1,6 @@
 {
   "name": "inline-csp-hash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "csp",
     "content security policy",
@@ -27,5 +27,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sjinks/inline-csp-hash.it"
-  }
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ]
 }
