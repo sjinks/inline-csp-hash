@@ -25,7 +25,7 @@ function run(name, hash, what, done)
 	let stream = hashstream({
 		hash, what,
 		replace_cb: (s, h) => {
-			hashes = h.map((x) => x.replace("'", ''));
+			hashes = h.map((x) => x.replace(/'/g, ''));
 			return s;
 		}
 	});
