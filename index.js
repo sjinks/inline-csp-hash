@@ -29,7 +29,7 @@ function hashstream(opts)
 	let hashes = [];
 	return through2.obj((file, enc, callback) => {
 		let content = file.contents;
-		let result  = mapItems(content, opts.what, hash).map(h => `${opts.hash}-${h}`);
+		let result  = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
 		hashes.push(...result);
 
 		if (typeof opts.replace_cb === 'function') {
