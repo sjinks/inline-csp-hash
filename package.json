@@ -12,7 +12,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "semistandard",
-    "test": "tap test/test*.js --cov --coverage-report=clover"
+    "test": "tap tests/test*.js",
+    "test:scrutinizer": "tap tests/test*.js --cov --coverage-report=clover"
   },
   "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name>",
   "license": "MIT",
