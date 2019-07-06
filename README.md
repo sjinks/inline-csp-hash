@@ -1,6 +1,8 @@
 # inline-csp-hash
 
 [![Build Status](https://travis-ci.com/sjinks/inline-csp-hash.svg?branch=master)](https://travis-ci.com/sjinks/inline-csp-hash)
+[![npm version](https://img.shields.io/npm/v/inline-csp-hash.svg)](https://www.npmjs.com/package/inline-csp-hash)
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
 
 Plugin to generate hash for inline scripts and styles for CSP.
 
