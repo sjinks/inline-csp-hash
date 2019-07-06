@@ -10,6 +10,7 @@ function fixtures (glob) {
 
 let hashes, sha;
 
+/* istanbul ignore next */
 function onStreamError (t, err) {
   t.fail(err);
   t.end();
@@ -17,7 +18,7 @@ function onStreamError (t, err) {
 
 function onStreamFinish (t) {
   t.equals(hashes.length, sha.length);
-  for (let i=0; i<sha.length; ++i) {
+  for (let i = 0; i < sha.length; ++i) {
     t.equals(hashes[i], sha[i]);
   }
 
