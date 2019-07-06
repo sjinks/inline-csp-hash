@@ -32,7 +32,7 @@ function run (name, hash, what, t) {
     t.end();
   });
 
-  stream.on('finish', (newFile) => {
+  stream.on('finish', (/* newFile */) => {
     t.equals(hashes.length, sha.length);
     for (let i = 0; i < sha.length; ++i) {
       t.equals(hashes[i], sha[i]);
@@ -64,7 +64,7 @@ function runWithoutCallback (name, hash, what, t) {
     t.end();
   });
 
-  stream.on('finish', (newFile) => {
+  stream.on('finish', (/* newFile */) => {
     t.pass();
     t.end();
   });
