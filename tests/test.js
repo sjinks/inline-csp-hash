@@ -8,6 +8,22 @@ function fixtures (glob) {
   return path.join(__dirname, 'fixtures', glob);
 }
 
+let hashes, sha;
+
+function onStreamError (t, err) {
+  t.fail(err);
+  t.end();
+}
+
+function onStreamFinish (t) {
+  t.equals(hashes.length, sha.length);
+  for (let i=0; i<sha.length; ++i) {
+    t.equals(hashes[i], sha[i]);
+  }
+
+  t.end();
+}
+
 function run (name, hash, what, t) {
   let srcFile = new Vinyl({
     path: fixtures(name + '.html'),
@@ -16,30 +32,18 @@ function run (name, hash, what, t) {
     contents: fs.readFileSync(fixtures(name + '.html'))
   });
 
-  let hashes;
-  const sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: 'utf8' }).split('\n').filter((s) => s.length > 0);
+  sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: 'utf8' }).split('\n').filter((s) => s.length > 0);
   let stream = hashstream({
     hash,
     what,
     replace_cb: (s, h) => {
-      hashes = h.map((x) => x.replace(/'/g, '')); // '
+      hashes = h.map((x) => x.replace(/'/g, ''));
       return s;
     }
   });
 
-  stream.on('error', (err) => {
-    t.fail(err);
-    t.end();
-  });
-
-  stream.on('finish', (/* newFile */) => {
-    t.equals(hashes.length, sha.length);
-    for (let i = 0; i < sha.length; ++i) {
-      t.equals(hashes[i], sha[i]);
-    }
-
-    t.end();
-  });
+  stream.on('error', onStreamError.bind(null, t));
+  stream.on('finish', onStreamFinish.bind(null, t));
 
   stream.write(srcFile);
   stream.end();
@@ -59,10 +63,7 @@ function runWithoutCallback (name, hash, what, t) {
     replace_cb: null
   });
 
-  stream.on('error', (err) => {
-    t.fail(err);
-    t.end();
-  });
+  stream.on('error', onStreamError.bind(null, t));
 
   stream.on('finish', (/* newFile */) => {
     t.pass();
