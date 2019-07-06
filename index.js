@@ -2,7 +2,7 @@ const cheerio  = require('cheerio');
 const crypto   = require('crypto');
 const through2 = require('through2');
 
-let defaults = {
+const defaults = {
 	what:       'script',
 	hash:       'sha256',
 	replace_cb: null
@@ -26,15 +26,14 @@ function hashstream(opts)
 		return crypto.createHash(opts.hash).update(s).digest('base64');
 	};
 
-	let hashes = [];
+	const hashes = [];
 	return through2.obj((file, enc, callback) => {
-		let content = file.contents;
-		let result  = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
+		const content = file.contents;
+		const result  = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
 		hashes.push(...result);
 
 		if (typeof opts.replace_cb === 'function') {
-			let s = content.toString();
-			s     = opts.replace_cb(s, hashes);
+			const s = opts.replace_cb(content.toString(), hashes);
 			file.contents = new Buffer(s, enc);
 		}
 
