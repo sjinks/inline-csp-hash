@@ -15,21 +15,21 @@ npm install inline-csp-hash --save
 ## Usage
 
 ```javascript
-const gulp       = require('gulp');
+const gulp = require('gulp');
 const hashstream = require('inline-csp-hash');
 
 gulp.task('inline-hash', () => {
-	return gulp.src('src/*.html')
-		.pipe(hashmap({
-			what: 'script',
-			replace_cb: (s, hashes) => s.replace(/script-src 'self'[^;]*/, "script-src 'self' " + hashes.join(" "))
-		}))
-		.pipe(hashmap({
-			what: 'style',
-			replace_cb: (s, hashes) => s.replace(/style-src 'self'[^;]*/, "style-src 'self' " + hashes.join(" "))
-		}))
-		.pipe(gulp.dest('dist/'))
-	;
+  return gulp.src('src/*.html')
+    .pipe(hashmap({
+      what: 'script',
+      replace_cb: (s, hashes) => s.replace(/script-src 'self'[^;]*/, "script-src 'self' " + hashes.join(" "))
+    }))
+    .pipe(hashmap({
+      what: 'style',
+      replace_cb: (s, hashes) => s.replace(/style-src 'self'[^;]*/, "style-src 'self' " + hashes.join(" "))
+    }))
+    .pipe(gulp.dest('dist/'))
+  ;
 });
 ```
 
