@@ -22,7 +22,7 @@
     "through2": "^3.0.1"
   },
   "devDependencies": {
-    "semistandard": "^13.0.1",
+    "semistandard": "*",
     "tap": "^14.4.1",
     "vinyl": "^2.2.0"
   },
