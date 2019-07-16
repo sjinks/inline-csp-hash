@@ -10,7 +10,7 @@ const defaults = {
 
 function mapItems (html, what, callback) {
   const $ = cheerio.load(html);
-  return $(what + ':not([src])').map((i, el) => callback($(el).text())).toArray();
+  return $(what + ':not([src])').map((i, el) => callback($(el).html())).toArray();
 }
 
 function hashstream (opts) {
@@ -20,9 +20,7 @@ function hashstream (opts) {
     throw new Error('Only sha256/384/512 hashes are supported.');
   }
 
-  const hash = function (s) {
-    return crypto.createHash(opts.hash).update(s).digest('base64');
-  };
+  const hash = (s) => crypto.createHash(opts.hash).update(s).digest('base64');
 
   const hashes = [];
   return through2.obj((file, enc, callback) => {
