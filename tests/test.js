@@ -26,7 +26,7 @@ function onStreamFinish (t) {
 }
 
 function run (name, hash, what, t) {
-  let srcFile = new Vinyl({
+  const srcFile = new Vinyl({
     path: fixtures(name + '.html'),
     cwd: 'test/',
     base: fixtures(''),
@@ -34,7 +34,7 @@ function run (name, hash, what, t) {
   });
 
   sha = fs.readFileSync(fixtures(name + '.' + hash), { encoding: 'utf8' }).split('\n').filter((s) => s.length > 0);
-  let stream = hashstream({
+  const stream = hashstream({
     hash,
     what,
     replace_cb: (s, h) => {
@@ -51,14 +51,14 @@ function run (name, hash, what, t) {
 }
 
 function runWithoutCallback (name, hash, what, t) {
-  let srcFile = new Vinyl({
+  const srcFile = new Vinyl({
     path: fixtures(name + '.html'),
     cwd: 'test/',
     base: fixtures(''),
     contents: fs.readFileSync(fixtures(name + '.html'))
   });
 
-  let stream = hashstream({
+  const stream = hashstream({
     hash,
     what,
     replace_cb: null
