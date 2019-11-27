@@ -18,10 +18,10 @@
   "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name>",
   "license": "MIT",
   "dependencies": {
-    "through2": "^3.0.1"
+    "through2": "^3.0.1",
+    "cheerio": "^1.0.0-rc.3"
   },
   "devDependencies": {
-    "cheerio": "^1.0.0-rc.3",
     "semistandard": "^14.2.0",
     "tap": "^14.6.9",
     "vinyl": "^2.2.0"
