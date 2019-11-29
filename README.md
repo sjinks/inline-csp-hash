@@ -25,11 +25,11 @@ const hashstream = require('inline-csp-hash');
 
 gulp.task('inline-hash', () => {
   return gulp.src('src/*.html')
-    .pipe(hashmap({
+    .pipe(hashstream({
       what: 'script',
       replace_cb: (s, hashes) => s.replace(/script-src 'self'[^;]*/, "script-src 'self' " + hashes.join(" "))
     }))
-    .pipe(hashmap({
+    .pipe(hashstream({
       what: 'style',
       replace_cb: (s, hashes) => s.replace(/style-src 'self'[^;]*/, "style-src 'self' " + hashes.join(" "))
     }))
