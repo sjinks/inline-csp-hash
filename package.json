@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "semistandard": "^14.2.2",
-    "tap": "^14.10.7",
+    "tap": "^14.10.8",
     "vinyl": "^2.2.0"
   },
   "repository": {
