@@ -23,7 +23,7 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "semistandard": "^14.2.2",
+    "semistandard": "^14.2.3",
     "tap": "^14.10.8",
     "vinyl": "^2.2.0"
   },
