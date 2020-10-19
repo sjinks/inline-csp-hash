@@ -11,7 +11,6 @@
   "description": "Plugin to generate hash for inline scripts and styles for CSP",
   "main": "index.js",
   "scripts": {
-    "pretest": "semistandard",
     "test": "tap tests/test*.js",
     "test:scrutinizer": "tap tests/test*.js --cov --coverage-report=clover"
   },
@@ -19,24 +18,21 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "eslint-config-standard": "^13.0.1",
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "semistandard": "^14.2.3",
     "tap": "^14.10.8",
     "vinyl": "^2.2.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sjinks/inline-csp-hash.it"
+    "url": "git+https://github.com/sjinks/inline-csp-hash.it.git"
   },
   "files": [
-    "index.js",
-    "README.md",
-    "LICENSE"
+    "index.js"
   ],
-  "engines": {
-    "node": ">=6"
-  }
+  "bugs": {
+    "url": "https://github.com/sjinks/inline-csp-hash.it/issues"
+  },
+  "homepage": "https://github.com/sjinks/inline-csp-hash.it#readme"
 }
