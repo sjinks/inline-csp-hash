@@ -21,7 +21,7 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "tap": "^14.11.0",
+    "tap": "^15.0.1",
     "vinyl": "^2.2.0"
   },
   "repository": {
