@@ -17,9 +17,9 @@ function onStreamError (t, err) {
 }
 
 function onStreamFinish (t) {
-  t.equals(hashes.length, sha.length);
+  t.equal(hashes.length, sha.length);
   for (let i = 0; i < sha.length; ++i) {
-    t.equals(hashes[i], sha[i]);
+    t.equal(hashes[i], sha[i]);
   }
 
   t.end();
