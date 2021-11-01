@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const hashstream = require('..');
 const Vinyl = require('vinyl');
-const tap = require('tap');
+const { expect } = require('chai');
 
 function fixtures (glob) {
   return path.join(__dirname, 'fixtures', glob);
@@ -11,21 +11,20 @@ function fixtures (glob) {
 let hashes, sha;
 
 /* istanbul ignore next */
-function onStreamError (t, err) {
-  t.fail(err);
-  t.end();
+function onStreamError (err) {
+  expect.fail(err.message)
 }
 
-function onStreamFinish (t) {
-  t.equal(hashes.length, sha.length);
+function onStreamFinish (done) {
+  expect(hashes.length).to.equal(sha.length);
   for (let i = 0; i < sha.length; ++i) {
-    t.equal(hashes[i], sha[i]);
+    expect(hashes[i]).to.equal(sha[i]);
   }
 
-  t.end();
+  done();
 }
 
-function run (name, hash, what, t) {
+function run (name, hash, what, done) {
   const srcFile = new Vinyl({
     path: fixtures(name + '.html'),
     cwd: 'test/',
@@ -43,14 +42,14 @@ function run (name, hash, what, t) {
     }
   });
 
-  stream.on('error', onStreamError.bind(null, t));
-  stream.on('finish', onStreamFinish.bind(null, t));
+  stream.on('error', onStreamError);
+  stream.on('finish', onStreamFinish.bind(null, done));
 
   stream.write(srcFile);
   stream.end();
 }
 
-function runWithoutCallback (name, hash, what, t) {
+function runWithoutCallback (name, hash, what, done) {
   const srcFile = new Vinyl({
     path: fixtures(name + '.html'),
     cwd: 'test/',
@@ -64,55 +63,49 @@ function runWithoutCallback (name, hash, what, t) {
     replace_cb: null
   });
 
-  stream.on('error', onStreamError.bind(null, t));
+  stream.on('error', onStreamError.bind(null, done));
 
   stream.on('finish', (/* newFile */) => {
-    t.pass();
-    t.end();
+    done();
   });
 
   stream.write(srcFile);
   stream.end();
 }
 
-tap.test('should hash scripts correctly', function (t) {
+describe('should hash scripts correctly', function () {
   const name = 'single-script';
-  t.test('#sha256', function (t) { run(name, 'sha256', 'script', t); });
-  t.test('#sha384', function (t) { run(name, 'sha384', 'script', t); });
-  t.test('#sha512', function (t) { run(name, 'sha512', 'script', t); });
-  t.end();
+  it('#sha256', function (done) { run(name, 'sha256', 'script', done); });
+  it('#sha384', function (done) { run(name, 'sha384', 'script', done); });
+  it('#sha512', function (done) { run(name, 'sha512', 'script', done); });
 });
 
-tap.test('should hash styles correctly', function (t) {
+describe('should hash styles correctly', function () {
   const name = 'single-style';
-  t.test('#sha256', function (t) { run(name, 'sha256', 'style', t); });
-  t.test('#sha384', function (t) { run(name, 'sha384', 'style', t); });
-  t.test('#sha512', function (t) { run(name, 'sha512', 'style', t); });
-  t.end();
+  it('#sha256', function (done) { run(name, 'sha256', 'style', done); });
+  it('#sha384', function (done) { run(name, 'sha384', 'style', done); });
+  it('#sha512', function (done) { run(name, 'sha512', 'style', done); });
 });
 
-tap.test('should hash multiple script tags', function (t) {
+describe('should hash multiple script tags', function () {
   const name = 'multiple-scripts';
-  t.test('#sha256', function (t) { run(name, 'sha256', 'script', t); });
-  t.test('#sha384', function (t) { run(name, 'sha384', 'script', t); });
-  t.test('#sha512', function (t) { run(name, 'sha512', 'script', t); });
-  t.end();
+  it('#sha256', function (done) { run(name, 'sha256', 'script', done); });
+  it('#sha384', function (done) { run(name, 'sha384', 'script', done); });
+  it('#sha512', function (done) { run(name, 'sha512', 'script', done); });
 });
 
-tap.test('should ignore scripts with src attribute', function (t) {
+describe('should ignore scripts with src attribute', function () {
   const name = 'script-src';
-  t.test('#sha256', function (t) { run(name, 'sha256', 'script', t); });
-  t.test('#sha384', function (t) { run(name, 'sha384', 'script', t); });
-  t.test('#sha512', function (t) { run(name, 'sha512', 'script', t); });
-  t.end();
+  it('#sha256', function (done) { run(name, 'sha256', 'script', done); });
+  it('#sha384', function (done) { run(name, 'sha384', 'script', done); });
+  it('#sha512', function (done) { run(name, 'sha512', 'script', done); });
 });
 
-tap.test('should throw an exception on invalid hash', function (t) {
-  t.throws(() => hashstream({ hash: 'invalid' }));
-  t.end();
+it('should throw an exception on invalid hash', function () {
+  expect(() => hashstream({ hash: 'invalid' })).to.throw();
 });
 
-tap.test('should handle invalid callbacks', function (t) {
+it('should handle invalid callbacks', function (done) {
   const name = 'script-src';
-  runWithoutCallback(name, 'sha256', 'script', t);
+  runWithoutCallback(name, 'sha256', 'script', done);
 });
