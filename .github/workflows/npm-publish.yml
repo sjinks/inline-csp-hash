@@ -14,8 +14,9 @@ jobs:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2.4.0
       - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # renovate: tag=v2.5.1
         with:
-          node-version: 12
+          node-version: lts/*
           registry-url: https://registry.npmjs.org/
+          cache: npm
       - run: npm ci
       - run: npm publish
         env:
