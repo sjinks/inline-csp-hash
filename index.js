@@ -10,7 +10,12 @@ const defaults = {
 
 function mapItems (html, what, callback) {
   const $ = cheerio.load(html);
-  return $(what + ':not([src])').map((i, el) => callback($(el).html())).toArray();
+  const inlineElementHashes = $(what + ':not([src])').map((i, el) => callback($(el).html())).toArray();
+  const inlineAttributeHashes = [];
+  if (what === 'style') {
+    inlineAttributeHashes.push(...$('[style]').map((i, el) => callback($(el).attr('style'))).toArray());
+  }
+  return inlineElementHashes.concat(inlineAttributeHashes);
 }
 
 function hashstream (opts) {
@@ -20,7 +25,7 @@ function hashstream (opts) {
     throw new Error('Only sha256/384/512 hashes are supported.');
   }
 
-  const hash = (s) => crypto.createHash(opts.hash).update(s).digest('base64');
+  const hash = s => crypto.createHash(opts.hash).update(s).digest('base64');
 
   return through2.obj((file, enc, callback) => {
     const content = file.contents;

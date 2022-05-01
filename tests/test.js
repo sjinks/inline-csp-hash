@@ -94,6 +94,13 @@ describe('should hash multiple script tags', function () {
   it('#sha512', function (done) { run(name, 'sha512', 'script', done); });
 });
 
+describe('should hash multiple style tags', function () {
+  const name = 'multiple-style';
+  it('#sha256', function (done) { run(name, 'sha256', 'style', done); });
+  it('#sha384', function (done) { run(name, 'sha384', 'style', done); });
+  it('#sha512', function (done) { run(name, 'sha512', 'style', done); });
+});
+
 describe('should ignore scripts with src attribute', function () {
   const name = 'script-src';
   it('#sha256', function (done) { run(name, 'sha256', 'script', done); });
