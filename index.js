@@ -22,11 +22,9 @@ function hashstream (opts) {
 
   const hash = (s) => crypto.createHash(opts.hash).update(s).digest('base64');
 
-  const hashes = [];
   return through2.obj((file, enc, callback) => {
     const content = file.contents;
-    const result = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
-    hashes.push(...result);
+    const hashes = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
 
     if (typeof opts.replace_cb === 'function') {
       const s = opts.replace_cb(content.toString(), hashes);
