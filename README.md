@@ -2,9 +2,6 @@
 
 ![Build and Test CI](https://github.com/sjinks/inline-csp-hash/workflows/Build%20and%20Test%20CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/inline-csp-hash.svg)](https://www.npmjs.com/package/inline-csp-hash)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sjinks/inline-csp-hash/build-status/master)
 
 Plugin to generate hash for inline scripts and styles for CSP.
 
