@@ -20,7 +20,7 @@ function mapItems (html, { what, attrs = false }, callback) {
       const eventHandlerRe = /^on/i;
       const jsUrlRe = /^javascript\:/i;
       $('*').each(function (i, el) {
-        for (attrName in el.attribs) {
+        for (const attrName in el.attribs) {
           // event handler
           if (eventHandlerRe.test(attrName)) {
             inlineAttributeHashes.push(callback(el.attribs[attrName]));
