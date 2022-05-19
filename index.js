@@ -8,14 +8,34 @@ const defaults = {
   replace_cb: null
 };
 
-function mapItems (html, what, callback) {
+function mapItems (html, { what, attrs = false }, callback) {
   const $ = cheerio.load(html);
   const inlineElementHashes = $(what + ':not([src])').map((i, el) => callback($(el).html())).toArray();
-  const inlineAttributeHashes = [];
-  if (what === 'style') {
-    inlineAttributeHashes.push(...$('[style]').map((i, el) => callback($(el).attr('style'))).toArray());
+
+  if (attrs) {
+    const inlineAttributeHashes = [];
+    if (what === 'style') {
+      inlineAttributeHashes.push(...$('[style]').map((i, el) => callback($(el).attr('style'))).toArray());
+    } else if (what === 'script') {
+      const eventHandlerRe = /^on/i;
+      const jsUrlRe = /^javascript\:/i;
+      $('*').each(function (i, el) {
+        for (attrName in el.attribs) {
+          // event handler
+          if (eventHandlerRe.test(attrName)) {
+            inlineAttributeHashes.push(callback(el.attribs[attrName]));
+          }
+          // javscript url
+          if (jsUrlRe.test(el.attribs[attrName])) {
+            inlineAttributeHashes.push(callback(el.attribs[attrName].split(jsUrlRe)[1]));
+          }
+        }
+      });
+    }
+    return inlineElementHashes.concat(inlineAttributeHashes);
   }
-  return inlineElementHashes.concat(inlineAttributeHashes);
+
+  return inlineElementHashes;
 }
 
 function hashstream (opts) {
@@ -29,7 +49,7 @@ function hashstream (opts) {
 
   return through2.obj((file, enc, callback) => {
     const content = file.contents;
-    const hashes = mapItems(content, opts.what, hash).map(h => `'${opts.hash}-${h}'`);
+    const hashes = mapItems(content, opts, hash).map(h => `'${opts.hash}-${h}'`);
 
     if (typeof opts.replace_cb === 'function') {
       const s = opts.replace_cb(content.toString(), hashes);

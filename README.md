@@ -40,6 +40,7 @@ gulp.task('inline-hash', () => {
 ## Options
 
 * what: `script` (default) or `style`: which tags to process (scripts and styles are processed separately because they are controlled by different CSP directives: `script-src` and `style-src`)
+* attrs: `false` (default) or `true`: pick up and include script or style inline attributes in hashes
 * hash: `sha256` (default), `sha384`, or `sha512`: hash algorithm to use. SHA family is the only one according to [the specification](https://w3c.github.io/webappsec-csp/2/#source-list-valid-hashes)
 * replace_cb: callback to inject gathered hashes into the source file
 
