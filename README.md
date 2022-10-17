@@ -1,5 +1,7 @@
 # inline-csp-hash
 
+**DEPRECATED - please use [@localnerve/csp-hashes](https://www.npmjs.com/package/@localnerve/csp-hashes) instead**
+
 ![Build and Test CI](https://github.com/sjinks/inline-csp-hash/workflows/Build%20and%20Test%20CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/inline-csp-hash.svg)](https://www.npmjs.com/package/inline-csp-hash)
 
